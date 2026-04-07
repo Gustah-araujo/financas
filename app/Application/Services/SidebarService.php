@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Application\Services;
+
+use App\Application\DTOs\SidebarItemDTO;
+
+/**
+ * Responsável por definir e serializar a estrutura do menu lateral da aplicação.
+ * Centraliza todos os itens de navegação para serem compartilhados via Inertia.
+ */
+class SidebarService
+{
+    /**
+     * Retorna a estrutura completa do menu lateral.
+     *
+     * @return SidebarItemDTO[]
+     */
+    public function getItems(): array
+    {
+        return [
+            new SidebarItemDTO(
+                icon: 'fa-solid fa-house',
+                label: 'Dashboard',
+                url: '/',
+            ),
+        ];
+    }
+
+    /**
+     * Retorna os itens serializados para uso no Inertia (shared props).
+     *
+     * @return array<int, array{icon: string, label: string, url: string, children: array}>
+     */
+    public function toArray(): array
+    {
+        return array_map(fn (SidebarItemDTO $item) => $item->toArray(), $this->getItems());
+    }
+}

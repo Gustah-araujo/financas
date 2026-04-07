@@ -7,18 +7,23 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Cria as tabelas de autenticação: users, password_reset_tokens e sessions.
      */
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
+            // Primary key — UUID (padrão do projeto)
+            $table->uuid('id')->primary();
+
+            // Dados do usuário
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+
             $table->timestamps();
+            $table->softDeletes(); // Preserva histórico de acesso
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
@@ -29,7 +34,7 @@ return new class extends Migration
 
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->foreignId('user_id')->nullable()->index();
+            $table->uuid('user_id')->nullable()->index(); // UUID para corresponder ao tipo da tabela users
             $table->string('ip_address', 45)->nullable();
             $table->text('user_agent')->nullable();
             $table->longText('payload');
@@ -38,7 +43,7 @@ return new class extends Migration
     }
 
     /**
-     * Reverse the migrations.
+     * Reverte as migrations.
      */
     public function down(): void
     {

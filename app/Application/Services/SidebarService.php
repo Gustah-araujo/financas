@@ -28,6 +28,11 @@ class SidebarService
                 label: 'Accounts',
                 url: '/accounts',
             ),
+            new SidebarItemDTO(
+                icon: 'fa-solid fa-arrow-down-to-bracket',
+                label: 'Transactions',
+                url: '/transactions',
+            ),
         ];
     }
 

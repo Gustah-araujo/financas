@@ -32,6 +32,10 @@ declare global {
             };
         };
         sidebar: SidebarItem[];
+        flash?: {
+            success?: string;
+            error?: string;
+        };
     };
 
     /** Conta bancária pertencente a um workspace */
@@ -41,5 +45,20 @@ declare global {
         type: 'checking' | 'savings' | 'cash';
         /** Saldo em centavos (integer) */
         balance: number;
+    }
+
+    /** Transação financeira pertencente a um workspace */
+    interface Transaction {
+        id: string;
+        workspace_id: string;
+        account_id: string;
+        type: 'debit' | 'credit_card' | 'transfer';
+        /** Valor em centavos (integer) */
+        amount: number;
+        description: string;
+        /** Data no formato Y-m-d */
+        date: string;
+        status: 'confirmed' | 'pending';
+        account?: Account;
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
+use App\Models\Workspace;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -14,7 +16,8 @@ class CreateNewUser implements CreatesNewUsers
     use PasswordValidationRules;
 
     /**
-     * Validate and create a newly registered user.
+     * Valida e cria um novo usuário registrado, junto com seu workspace padrão.
+     * Todo o processo é envolvido em uma transação para garantir consistência.
      *
      * @param  array<string, string>  $input
      *
@@ -34,10 +37,23 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $this->passwordRules(),
         ])->validate();
 
-        return User::create([
-            'name' => $input['name'],
-            'email' => $input['email'],
-            'password' => Hash::make($input['password']),
-        ]);
+        return DB::transaction(function () use ($input): User {
+            /** @var User $user */
+            $user = User::create([
+                'name'     => $input['name'],
+                'email'    => $input['email'],
+                'password' => Hash::make($input['password']),
+            ]);
+
+            /** @var Workspace $workspace */
+            $workspace = Workspace::create([
+                'name' => "{$input['name']}'s Workspace",
+            ]);
+
+            $workspace->users()->attach($user->id, ['role' => 'owner']);
+
+            return $user;
+        });
     }
 }
+

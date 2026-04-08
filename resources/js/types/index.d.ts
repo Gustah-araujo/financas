@@ -33,4 +33,13 @@ declare global {
         };
         sidebar: SidebarItem[];
     };
+
+    /** Conta bancária pertencente a um workspace */
+    interface Account {
+        id: string;
+        name: string;
+        type: 'checking' | 'savings' | 'cash';
+        /** Saldo em centavos (integer) */
+        balance: number;
+    }
 }

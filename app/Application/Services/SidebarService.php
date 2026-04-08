@@ -23,6 +23,11 @@ class SidebarService
                 label: 'Dashboard',
                 url: '/',
             ),
+            new SidebarItemDTO(
+                icon: 'fa-solid fa-wallet',
+                label: 'Accounts',
+                url: '/accounts',
+            ),
         ];
     }
 

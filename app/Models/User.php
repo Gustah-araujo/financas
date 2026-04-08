@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -33,5 +34,30 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password'          => 'hashed',
         ];
+    }
+
+    /**
+     * Workspaces aos quais este usuário pertence.
+     * O pivot `role` indica a função do usuário (owner | member).
+     *
+     * @return BelongsToMany<Workspace>
+     */
+    public function workspaces(): BelongsToMany
+    {
+        return $this->belongsToMany(Workspace::class, 'workspace_users')
+            ->using(WorkspaceUser::class)
+            ->withPivot('role')
+            ->withTimestamps();
+    }
+
+    /**
+     * Retorna o workspace principal do usuário (onde ele é owner).
+     * Simplificação para a fase atual: retorna o primeiro workspace como owner.
+     *
+     * @return Workspace
+     */
+    public function currentWorkspace(): Workspace
+    {
+        return $this->workspaces()->wherePivot('role', 'owner')->firstOrFail();
     }
 }

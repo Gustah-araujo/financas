@@ -230,9 +230,17 @@ function Header({ title }: HeaderProps) {
  * @param title - Título exibido no header
  */
 export default function MainLayout({ children, title }: Props) {
+    const { flash } = usePage<PageProps>().props;
+
     const [collapsed, setCollapsed] = useState(
         () => localStorage.getItem('sidebar') === 'collapsed',
     );
+
+    useEffect(() => {
+        if (flash?.notification) {
+            window.Notifications.toast(flash.notification);
+        }
+    }, [flash?.notification]);
 
     function handleToggle() {
         setCollapsed((prev) => {

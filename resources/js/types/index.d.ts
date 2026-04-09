@@ -3,6 +3,7 @@ import axios from 'axios';
 declare global {
     interface Window {
         axios: typeof axios;
+        Notifications: typeof import('@/utils/Notifications').default;
     }
 
     /** Sub-item de navegação da sidebar (sem ícone) */
@@ -33,8 +34,11 @@ declare global {
         };
         sidebar: SidebarItem[];
         flash?: {
-            success?: string;
-            error?: string;
+            notification?: {
+                type: 'success' | 'error' | 'warning' | 'info';
+                title: string;
+                message?: string;
+            };
         };
     };
 

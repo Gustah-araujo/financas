@@ -2,6 +2,9 @@ import './bootstrap';
 import { createInertiaApp } from '@inertiajs/react';
 import { createRoot } from 'react-dom/client';
 import { StrictMode } from 'react';
+import Notifications from '@/utils/Notifications';
+
+window.Notifications = Notifications;
 
 createInertiaApp({
     title: (title) => `${title} - Finanças`,

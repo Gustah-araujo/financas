@@ -7,6 +7,7 @@ use App\Application\Services\DeleteTransactionService;
 use App\Application\Services\UpdateTransactionService;
 use App\Http\Requests\StoreTransactionRequest;
 use App\Http\Requests\UpdateTransactionRequest;
+use App\Support\Notifications;
 use App\Http\Resources\AccountResource;
 use App\Http\Resources\TransactionResource;
 use App\Models\Account;
@@ -34,8 +35,9 @@ class TransactionController extends Controller
     ) {}
 
     /**
-     * Lista todas as transações do workspace do usuário autenticado.
-     * Ordenadas por data decrescente com eager load da conta associada.
+     * Lista as transações do workspace do usuário autenticado.
+     * As transações são carregadas via DataTable pelo endpoint da API.
+     * Passa apenas as contas disponíveis para uso nos filtros e formulário de criação.
      *
      * @param  Request  $request
      * @return Response
@@ -44,16 +46,10 @@ class TransactionController extends Controller
     {
         $workspace = $request->user()->currentWorkspace();
 
-        $transactions = Transaction::where('workspace_id', $workspace->id)
-            ->with('account')
-            ->orderBy('date', 'desc')
-            ->get();
-
         $accounts = Account::where('workspace_id', $workspace->id)->get();
 
         return Inertia::render('Transactions/Index', [
-            'transactions' => TransactionResource::collection($transactions),
-            'accounts'     => AccountResource::collection($accounts),
+            'accounts' => AccountResource::collection($accounts),
         ]);
     }
 
@@ -94,7 +90,9 @@ class TransactionController extends Controller
             'status'       => $request->validated('status', 'confirmed'),
         ]);
 
-        return redirect()->route('transactions.index')->with('success', 'Transação criada com sucesso.');
+        Notifications::success('Transação criada!', 'A transação foi registrada com sucesso.');
+
+        return redirect()->route('transactions.index');
     }
 
     /**
@@ -160,7 +158,9 @@ class TransactionController extends Controller
 
         $this->updateTransactionService->execute($transaction, $request->validated());
 
-        return redirect()->route('transactions.index')->with('success', 'Transação atualizada com sucesso.');
+        Notifications::success('Transação atualizada!', 'Os dados da transação foram atualizados.');
+
+        return redirect()->route('transactions.index');
     }
 
     /**
@@ -177,7 +177,9 @@ class TransactionController extends Controller
 
         $this->deleteTransactionService->execute($transaction);
 
-        return redirect()->route('transactions.index')->with('success', 'Transação removida com sucesso.');
+        Notifications::success('Transação removida!', 'A transação foi removida com sucesso.');
+
+        return redirect()->route('transactions.index');
     }
 
     /**

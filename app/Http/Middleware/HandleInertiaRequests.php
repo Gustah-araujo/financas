@@ -46,6 +46,9 @@ class HandleInertiaRequests extends Middleware
                 ] : null,
             ],
             'sidebar' => $this->sidebarService->toArray(),
+            'flash'   => [
+                'notification' => session('notification'),
+            ],
         ];
     }
 }

@@ -251,6 +251,8 @@ app/
 - Não recalcular saldo globalmente
 - Transferências devem sempre gerar duas transações
 - Cartão de crédito só impacta saldo no pagamento da fatura
+- Toda rota de criação (`store`), edição (`update`) ou remoção (`destroy`) **deve** chamar `Notifications::success()` antes do `redirect()`, usando `App\Support\Notifications`
+- Toda ação destrutiva (exclusão, cancelamento, reversão) **deve** exibir um modal de confirmação via `window.Notifications.alert()` antes de disparar a requisição ao backend
 
 ---
 

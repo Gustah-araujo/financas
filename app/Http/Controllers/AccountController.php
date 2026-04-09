@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAccountRequest;
 use App\Http\Requests\UpdateAccountRequest;
+use App\Support\Notifications;
 use App\Http\Resources\AccountResource;
 use App\Models\Account;
 use Illuminate\Http\RedirectResponse;
@@ -19,19 +20,13 @@ class AccountController extends Controller
 {
     /**
      * Lista todas as contas do workspace do usuário autenticado.
+     * Os dados são carregados via DataTable pelo endpoint da API.
      *
-     * @param  Request  $request
      * @return Response
      */
-    public function index(Request $request): Response
+    public function index(): Response
     {
-        $workspace = $request->user()->currentWorkspace();
-
-        $accounts = Account::where('workspace_id', $workspace->id)->get();
-
-        return Inertia::render('Accounts/Index', [
-            'accounts' => AccountResource::collection($accounts),
-        ]);
+        return Inertia::render('Accounts/Index');
     }
 
     /**
@@ -58,6 +53,8 @@ class AccountController extends Controller
             ...$request->validated(),
             'workspace_id' => $workspace->id,
         ]);
+
+        Notifications::success('Conta criada!', 'A conta foi criada com sucesso.');
 
         return redirect()->route('accounts.index');
     }
@@ -110,6 +107,8 @@ class AccountController extends Controller
 
         $account->update($request->validated());
 
+        Notifications::success('Conta atualizada!', 'Os dados da conta foram atualizados.');
+
         return redirect()->route('accounts.index');
     }
 
@@ -126,6 +125,8 @@ class AccountController extends Controller
         $this->authorizeWorkspace($request, $account);
 
         $account->delete();
+
+        Notifications::success('Conta removida!', 'A conta foi removida com sucesso.');
 
         return redirect()->route('accounts.index');
     }

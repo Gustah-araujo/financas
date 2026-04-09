@@ -36,12 +36,12 @@ export default function Edit({ transaction, accounts }: Props) {
     }
 
     return (
-        <MainLayout title="Edit Transaction">
-            <Head title="Edit Transaction" />
+        <MainLayout title="Editar Transação">
+            <Head title="Editar Transação" />
 
             <div className="mx-auto max-w-lg">
                 <div className="mb-6 flex items-center justify-between">
-                    <h2 className="text-xl font-semibold text-gray-800 dark:text-white">Edit Transaction</h2>
+                    <h2 className="text-xl font-semibold text-gray-800 dark:text-white">Editar Transação</h2>
                 </div>
 
                 <div className="rounded-lg bg-white p-6 shadow-sm dark:bg-gray-800">
@@ -52,7 +52,7 @@ export default function Edit({ transaction, accounts }: Props) {
                                 htmlFor="account_id"
                                 className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300"
                             >
-                                Account
+                                Conta
                             </label>
                             <select
                                 id="account_id"
@@ -77,7 +77,7 @@ export default function Edit({ transaction, accounts }: Props) {
                                 htmlFor="amount"
                                 className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300"
                             >
-                                Amount (R$)
+                                Valor (R$)
                             </label>
                             <input
                                 id="amount"
@@ -100,7 +100,7 @@ export default function Edit({ transaction, accounts }: Props) {
                                 htmlFor="description"
                                 className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300"
                             >
-                                Description
+                                Descrição
                             </label>
                             <input
                                 id="description"
@@ -121,7 +121,7 @@ export default function Edit({ transaction, accounts }: Props) {
                                 htmlFor="date"
                                 className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300"
                             >
-                                Date
+                                Data
                             </label>
                             <input
                                 id="date"
@@ -142,7 +142,7 @@ export default function Edit({ transaction, accounts }: Props) {
                                 href="/transactions"
                                 className="rounded-lg px-4 py-2 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
                             >
-                                Cancel
+                                Cancelar
                             </Link>
                             <button
                                 type="submit"
@@ -150,7 +150,7 @@ export default function Edit({ transaction, accounts }: Props) {
                                 className="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-60"
                             >
                                 {processing && <i className="fa-solid fa-spinner fa-spin" />}
-                                Save
+                                Salvar
                             </button>
                         </div>
                     </form>

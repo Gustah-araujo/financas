@@ -3,8 +3,8 @@ import MainLayout from '@/Layouts/MainLayout';
 
 export default function Dashboard() {
     return (
-        <MainLayout title="Dashboard">
-            <Head title="Dashboard" />
+        <MainLayout title="Painel">
+            <Head title="Painel" />
 
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">

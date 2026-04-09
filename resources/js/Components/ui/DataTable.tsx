@@ -93,16 +93,16 @@ function Pagination({ meta, onPageChange }: PaginationProps) {
             <p className="text-sm text-gray-600 dark:text-gray-400">
                 {from !== null && to !== null ? (
                     <>
-                        Showing{' '}
+                        Exibindo{' '}
                         <span className="font-medium text-gray-900 dark:text-white">{from}</span>
                         {' – '}
                         <span className="font-medium text-gray-900 dark:text-white">{to}</span>
-                        {' of '}
+                        {' de '}
                         <span className="font-medium text-gray-900 dark:text-white">{total}</span>{' '}
-                        results
+                        resultados
                     </>
                 ) : (
-                    '0 results'
+                    '0 resultados'
                 )}
             </p>
 
@@ -112,14 +112,14 @@ function Pagination({ meta, onPageChange }: PaginationProps) {
                     onClick={() => onPageChange(current_page - 1)}
                     disabled={current_page === 1}
                     className="inline-flex items-center gap-1.5 rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
-                    aria-label="Previous page"
+                    aria-label="Página anterior"
                 >
                     <i className="fa-solid fa-chevron-left text-xs" aria-hidden="true" />
-                    Prev
+                    Anterior
                 </button>
 
                 <span className="min-w-20 text-center text-sm text-gray-600 dark:text-gray-400">
-                    Page {current_page} of {last_page}
+                    Página {current_page} de {last_page}
                 </span>
 
                 <button
@@ -127,9 +127,9 @@ function Pagination({ meta, onPageChange }: PaginationProps) {
                     onClick={() => onPageChange(current_page + 1)}
                     disabled={current_page === last_page}
                     className="inline-flex items-center gap-1.5 rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
-                    aria-label="Next page"
+                    aria-label="Próxima página"
                 >
-                    Next
+                    Próximo
                     <i className="fa-solid fa-chevron-right text-xs" aria-hidden="true" />
                 </button>
             </div>
@@ -146,7 +146,7 @@ function DataTableInner<T extends Record<string, unknown>>(
         params,
         perPage = 15,
         searchable = false,
-        searchPlaceholder = 'Search…',
+        searchPlaceholder = 'Buscar…',
         emptyMessage = 'No records found.',
         emptyIcon = 'fa-solid fa-inbox',
         className = '',

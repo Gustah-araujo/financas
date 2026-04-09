@@ -25,12 +25,12 @@ class SidebarService
             ),
             new SidebarItemDTO(
                 icon: 'fa-solid fa-wallet',
-                label: 'Accounts',
+                label: 'Contas',
                 url: '/accounts',
             ),
             new SidebarItemDTO(
                 icon: 'fa-solid fa-arrow-down-to-bracket',
-                label: 'Transactions',
+                label: 'Transações',
                 url: '/transactions',
             ),
         ];

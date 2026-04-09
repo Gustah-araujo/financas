@@ -35,12 +35,12 @@ export default function Create({ accounts }: Props) {
     }
 
     return (
-        <MainLayout title="New Transaction">
-            <Head title="New Transaction" />
+        <MainLayout title="Nova Transação">
+            <Head title="Nova Transação" />
 
             <div className="mx-auto max-w-lg">
                 <div className="mb-6 flex items-center justify-between">
-                    <h2 className="text-xl font-semibold text-gray-800 dark:text-white">New Transaction</h2>
+                    <h2 className="text-xl font-semibold text-gray-800 dark:text-white">Nova Transação</h2>
                 </div>
 
                 <div className="rounded-lg bg-white p-6 shadow-sm dark:bg-gray-800">
@@ -51,7 +51,7 @@ export default function Create({ accounts }: Props) {
                                 htmlFor="account_id"
                                 className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300"
                             >
-                                Account
+                                Conta
                             </label>
                             <select
                                 id="account_id"
@@ -59,7 +59,7 @@ export default function Create({ accounts }: Props) {
                                 onChange={(e) => setData('account_id', e.target.value)}
                                 className="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                             >
-                                <option value="">Select an account</option>
+                                <option value="">Selecione uma conta</option>
                                 {accounts.map((account) => (
                                     <option key={account.id} value={account.id}>
                                         {account.name}
@@ -77,7 +77,7 @@ export default function Create({ accounts }: Props) {
                                 htmlFor="amount"
                                 className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300"
                             >
-                                Amount (R$)
+                                Valor (R$)
                             </label>
                             <input
                                 id="amount"
@@ -101,7 +101,7 @@ export default function Create({ accounts }: Props) {
                                 htmlFor="description"
                                 className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300"
                             >
-                                Description
+                                Descrição
                             </label>
                             <input
                                 id="description"
@@ -110,7 +110,7 @@ export default function Create({ accounts }: Props) {
                                 value={data.description}
                                 onChange={(e) => setData('description', e.target.value)}
                                 className="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm placeholder:text-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-500"
-                                placeholder="e.g. Grocery shopping"
+                                placeholder="ex: Compras no mercado"
                             />
                             {errors.description && (
                                 <p className="mt-1.5 text-xs text-red-600 dark:text-red-400">{errors.description}</p>
@@ -123,7 +123,7 @@ export default function Create({ accounts }: Props) {
                                 htmlFor="date"
                                 className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300"
                             >
-                                Date
+                                Data
                             </label>
                             <input
                                 id="date"
@@ -144,7 +144,7 @@ export default function Create({ accounts }: Props) {
                                 href="/transactions"
                                 className="rounded-lg px-4 py-2 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
                             >
-                                Cancel
+                                Cancelar
                             </Link>
                             <button
                                 type="submit"
@@ -152,7 +152,7 @@ export default function Create({ accounts }: Props) {
                                 className="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-60"
                             >
                                 {processing && <i className="fa-solid fa-spinner fa-spin" />}
-                                Save
+                                Salvar
                             </button>
                         </div>
                     </form>
